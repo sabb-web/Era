@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zero Perfection - A Special Melody for My Pori ✨</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+            background: linear-gradient(135deg, #0f051d 0%, #220835 40%, #3d0c4e 70%, #150024 100%);
+            color: #fce7f3;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .font-cursive {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 5, 29, 0.8);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ec4899;
+            border-radius: 10px;
+        }
+
+        /* Glowing text & cards */
+        .glow-text {
+            text-shadow: 0 0 15px rgba(244, 114, 182, 0.6), 0 0 30px rgba(217, 70, 239, 0.4);
+        }
+
+        .glow-box {
+            box-shadow: 0 8px 32px 0 rgba(192, 38, 211, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+        }
+
+        .glow-box-pink {
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.3);
+            border: 1px solid rgba(244, 114, 182, 0.4);
+        }
+
+        /* Subtitle line highlighting */
+        .lyric-line {
+            transition: all 0.35s ease;
+            opacity: 0.35;
+            transform: scale(0.96);
+            filter: blur(0.3px);
+            cursor: pointer;
+            border-radius: 0.75rem;
+        }
+        .lyric-line:hover {
+            opacity: 0.75;
+            background: rgba(236, 72, 153, 0.08);
+        }
+        .lyric-line.active {
+            opacity: 1;
+            transform: scale(1.04);
+            filter: blur(0px);
+            color: #f472b6;
+            text-shadow: 0 0 14px rgba(244, 114, 182, 0.85);
+            font-weight: 600;
+            background: rgba(236, 72, 153, 0.16);
+            border: 1px solid rgba(244, 114, 182, 0.35);
+        }
+
+        /* Heart particles created on click */
+        .click-heart {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUpAndFade 1.2s forwards linear;
+            font-size: 1.2rem;
+            z-index: 9999;
+        }
+
+        @keyframes floatUpAndFade {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+            }
+            50% {
+                transform: translate(-50%, -100px) scale(1.2) rotate(15deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -180px) scale(1.5) rotate(-15deg);
+            }
+        }
+
+        /* Pulse heart animation */
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(236, 72, 153, 0.6)); }
+            50% { transform: scale(1.12); filter: drop-shadow(0 0 18px rgba(236, 72, 153, 0.9)); }
+        }
+        .pulse-heart {
+            animation: pulseGlow 2.2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="relative flex flex-col items-center justify-between px-4 py-8 min-h-screen text-slate-100">
+
+    <!-- Floating Background Particles -->
+    <div id="bgParticlesContainer" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- Canvas for Stars -->
+    <canvas id="starCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Main Container -->
+    <main class="relative z-10 w-full max-w-4xl mx-auto space-y-10">
+
+        <!-- HEADER SECTION -->
+        <header class="text-center space-y-3 pt-4">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-950/40 border border-pink-500/30 text-pink-300 text-sm tracking-wide shadow-inner">
+                <i class="fa-solid font-sparkles fa-wand-magic-sparkles text-pink-400"></i>
+                <span>A Musical Tribute to My Bestie</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-6xl font-bold tracking-tight glow-text bg-gradient-to-r from-pink-300 via-rose-200 to-purple-300 bg-clip-text text-transparent">
+                A Special Melody for My <span class="font-cursive text-5xl sm:text-7xl text-pink-400 inline-block transform hover:scale-110 transition duration-300">Pori</span> ✨
+            </h1>
+            
+            <p class="text-pink-200/80 text-base sm:text-lg max-w-xl mx-auto font-light italic">
+                "তোর মিষ্টি হাসি আর পাগলামিগুলো নিয়েই এই ছোট্ট চেষ্টা... তুই সবসময় আমার কাছে সেরা!" 💖
+            </p>
+        </header>
+
+
+        <!-- PHOTO GALLERY SHOWCASE -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between px-2">
+                <h2 class="text-xl font-semibold text-pink-200 flex items-center gap-2">
+                    <i class="fa-solid fa-heart text-rose-400 pulse-heart"></i>
+                    Sweet Moments Gallery
+                </h2>
+                <span class="text-xs text-pink-300/60 italic">Tap or hover to glow ✨</span>
+            </div>
+
+            <!-- Grid of Photos -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                
+                <!-- Photo Card 1 -->
+                <div class="group relative rounded-2xl overflow-hidden glow-box bg-purple-950/40 p-2 transition-all duration-500 hover:-translate-y-2 hover:glow-box-pink">
+                    <div class="relative h-64 sm:h-72 w-full rounded-xl overflow-hidden bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" 
+                             alt="Pori Portrait 1" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                             onerror="this.src='https://placehold.co/600x800/220835/f472b6?text=Cute+Pori+1'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-purple-950/90 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+                        <div class="absolute bottom-3 left-3 right-3 text-center">
+                            <span class="text-xs font-medium text-pink-200 bg-pink-900/60 backdrop-blur-md px-3 py-1 rounded-full border border-pink-400/30">
+                                Magic Smile ✨
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo Card 2 -->
+                <div class="group relative rounded-2xl overflow-hidden glow-box bg-purple-950/40 p-2 transition-all duration-500 hover:-translate-y-2 hover:glow-box-pink sm:translate-y-3">
+                    <div class="relative h-64 sm:h-72 w-full rounded-xl overflow-hidden bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" 
+                             alt="Pori Portrait 2" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                             onerror="this.src='https://placehold.co/600x800/220835/f472b6?text=Cute+Pori+2'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-purple-950/90 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+                        <div class="absolute bottom-3 left-3 right-3 text-center">
+                            <span class="text-xs font-medium text-pink-200 bg-pink-900/60 backdrop-blur-md px-3 py-1 rounded-full border border-pink-400/30">
+                                My Bestie Vibe 🌸
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo Card 3 -->
+                <div class="group relative rounded-2xl overflow-hidden glow-box bg-purple-950/40 p-2 transition-all duration-500 hover:-translate-y-2 hover:glow-box-pink">
+                    <div class="relative h-64 sm:h-72 w-full rounded-xl overflow-hidden bg-slate-900">
+                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80" 
+                             alt="Pori Portrait 3" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-out"
+                             onerror="this.src='https://placehold.co/600x800/220835/f472b6?text=Cute+Pori+3'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-purple-950/90 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+                        <div class="absolute bottom-3 left-3 right-3 text-center">
+                            <span class="text-xs font-medium text-pink-200 bg-pink-900/60 backdrop-blur-md px-3 py-1 rounded-full border border-pink-400/30">
+                                Unstoppable Angel 👼
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- CUSTOM MUSIC PLAYER WITH LIVE KARAOKE SUBTITLES -->
+        <section class="glow-box rounded-3xl p-6 sm:p-8 bg-purple-950/30 relative overflow-hidden">
+            
+            <!-- Audio Notice & Custom Local Audio Option -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-pink-500/20 text-xs text-pink-300/80">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-music text-pink-400"></i>
+                    <span>Now Playing: <strong class="text-pink-200 font-semibold">Zero perfection.mp3</strong></span>
+                </div>
+                
+                <!-- Local Audio Loader Button (Optional) -->
+                <label class="cursor-pointer bg-pink-900/40 hover:bg-pink-800/60 text-pink-200 px-3 py-1.5 rounded-full border border-pink-400/30 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-file-audio text-xs"></i>
+                    <span>Custom Audio File?</span>
+                    <input type="file" id="audioFileInput" accept="audio/*" class="hidden">
+                </label>
+            </div>
+
+            <!-- Audio Element (Playing the user provided song) -->
+            <audio id="mainAudio" preload="auto">
+                <source src="Zero perfection.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Player Controls Side -->
+                <div class="lg:col-span-5 flex flex-col items-center text-center space-y-6">
+                    
+                    <!-- Vinyl/Album Art Spinning Disc -->
+                    <div class="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full p-2 bg-gradient-to-tr from-pink-500 via-purple-500 to-rose-400 shadow-2xl glow-box-pink">
+                        <div id="albumDisc" class="w-full h-full rounded-full bg-slate-950 flex items-center justify-center relative overflow-hidden transition duration-1000">
+                            <!-- Disc grooves -->
+                            <div class="absolute inset-2 border border-slate-800/80 rounded-full"></div>
+                            <div class="absolute inset-6 border border-slate-800/60 rounded-full"></div>
+                            <div class="absolute inset-10 border border-slate-800/40 rounded-full"></div>
+                            
+                            <!-- Center Cover Art -->
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" 
+                                 class="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-2 border-pink-400/80 shadow-md" 
+                                 alt="Disc Center"
+                                 onerror="this.src='https://placehold.co/400x400/220835/f472b6?text=Pori'">
+                            
+                            <!-- Center Spindle Hole -->
+                            <div class="absolute w-5 h-5 bg-slate-950 rounded-full border border-pink-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Song Meta -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-pink-100 glow-text">Zero perfection</h3>
+                        <p class="text-sm text-pink-300/70 mt-1">Dedicated to <span class="text-pink-400 font-medium">Pori</span> 💖</p>
+                    </div>
+
+                    <!-- Custom Playback Controls -->
+                    <div class="w-full space-y-3">
+                        <!-- Progress Bar -->
+                        <div class="space-y-1">
+                            <input type="range" id="seekBar" value="0" max="100" class="w-full h-2 bg-purple-950/80 accent-pink-500 rounded-lg cursor-pointer">
+                            <div class="flex justify-between text-xs text-pink-300/60">
+                                <span id="currentTimeDisplay">00:00</span>
+                                <span id="durationDisplay">01:34</span>
+                            </div>
+                        </div>
+
+                        <!-- Main Play/Pause Button -->
+                        <div class="flex items-center justify-center gap-6">
+                            <button id="rewindBtn" class="text-pink-300 hover:text-pink-100 transition text-xl p-2" title="Rewind 5s">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+
+                            <button id="playPauseBtn" class="w-14 h-14 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 text-white flex items-center justify-center shadow-lg shadow-pink-500/40 transition transform active:scale-95 text-xl">
+                                <i id="playIcon" class="fa-solid fa-play ml-1"></i>
+                            </button>
+
+                            <button id="forwardBtn" class="text-pink-300 hover:text-pink-100 transition text-xl p-2" title="Forward 5s">
+                                <i class="fa-solid fa-rotate-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Synchronized Subtitles (Lyrics Display) -->
+                <div class="lg:col-span-7 flex flex-col h-full">
+                    <div class="flex items-center justify-between mb-3 px-2">
+                        <span class="text-xs uppercase tracking-widest text-pink-400 font-semibold flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-pink-500 animate-ping"></span>
+                            Live Sync Subtitles
+                        </span>
+                        <span class="text-xs text-pink-300/50">Click any line to jump ⏩</span>
+                    </div>
+
+                    <!-- Lyrics Container -->
+                    <div id="lyricsScrollContainer" class="h-64 sm:h-80 overflow-y-auto rounded-2xl bg-slate-950/60 border border-pink-500/20 p-4 space-y-3 text-center flex flex-col items-center justify-start scroll-smooth shadow-inner">
+                        
+                        <!-- [Intro] -->
+                        <div class="text-xs uppercase tracking-wider text-pink-400/70 font-semibold pt-1">[Intro]</div>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="0.0">
+                            🎵 (Beat Starts)
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="1.0">
+                            Yeah... check it out. 🎧
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="3.8">
+                            Pata hai na tu mere liye kya hai? 💖
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="6.2">
+                            Sun... 👂
+                        </p>
+
+                        <!-- [Verse 1] -->
+                        <div class="text-xs uppercase tracking-wider text-pink-400/70 font-semibold pt-3">[Verse 1]</div>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="12.0">
+                            Baatein teri sunke main toh kho jata hoon 💭
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="15.0">
+                            Tere saamne aate hi chup ho jata hoon 🙈
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="18.0">
+                            Sochta hoon aaj kuch naya bolunga 🗣️
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="21.5">
+                            Dil ka har ek raaz kholunga 🔓
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="25.0">
+                            Par teri wo aankhein jab mujhko dekhe 👀
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="28.5">
+                            Mere saare sabak aur lafz bhaage dekhe 🏃‍♂️
+                        </p>
+
+                        <!-- [Chorus] -->
+                        <div class="text-xs uppercase tracking-wider text-pink-400/70 font-semibold pt-3">[Chorus]</div>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="32.0">
+                            Tu hi toh meri jaan, tu hi mera vibe ✨
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="35.5">
+                            Tere bina lage sab kuch dull aur tribe 🌌
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="39.0">
+                            Bestie se thoda sa upar ye connection 🔗
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="42.5">
+                            Tere bina zindagi mein zero perfection! 💯
+                        </p>
+
+                        <!-- [Verse 2] -->
+                        <div class="text-xs uppercase tracking-wider text-pink-400/70 font-semibold pt-3">[Verse 2]</div>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="46.0">
+                            Flirting ki kitaab main toh bhool gaya saari 📖
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="49.0">
+                            Jab saamne aati hai tu, oye meri pyari! 🌸
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="52.5">
+                            Code likhte likhte tera khayal aa jaye 💻
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="56.0">
+                            Coding se zyada tera chehra yaad reh jaye 🧠
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="59.0">
+                            Maana ki thoda sa awkward hoon main 😅
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="62.0">
+                            Par tere liye sabse best wala boy hoon main! 😎
+                        </p>
+
+                        <!-- [Chorus] -->
+                        <div class="text-xs uppercase tracking-wider text-pink-400/70 font-semibold pt-3">[Chorus]</div>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="65.5">
+                            Tu hi toh meri jaan, tu hi mera vibe ✨
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="69.5">
+                            Tere bina lage sab kuch dull aur tribe 🌌
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="73.0">
+                            Bestie se thoda sa upar ye connection 🔗
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="76.5">
+                            Tere bina zindagi mein zero perfection! 💯
+                        </p>
+
+                        <!-- [Outro] -->
+                        <div class="text-xs uppercase tracking-wider text-pink-400/70 font-semibold pt-3">[Outro]</div>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="81.0">
+                            Haan, bas yhi kehna tha... 💌
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="84.5">
+                            Samajh gai na? 😉
+                        </p>
+                        <p class="lyric-line py-2 px-3 text-sm sm:text-base w-full" data-time="88.0">
+                            🎵 (Music Outro...) ✨
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- EXPLICIT ACTION TO REVEAL LETTER -->
+        <div class="text-center pt-2">
+            <button id="openLetterBtn" class="group relative inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-pink-600 via-rose-500 to-purple-600 text-white font-semibold shadow-xl shadow-pink-600/30 hover:shadow-pink-500/50 hover:scale-105 transition duration-300 border border-pink-300/40">
+                <i class="fa-solid fa-envelope-open-text text-xl group-hover:rotate-12 transition duration-300"></i>
+                <span>Open Secret Message for Pori 💌</span>
+            </button>
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 text-center py-6 mt-12 text-xs text-pink-300/50 border-t border-pink-500/10 w-full max-w-4xl">
+        <p>Created with infinite love & care for Pori ✨ | Click anywhere on the screen for magic hearts!</p>
+    </footer>
+
+
+    <!-- HEARTFELT LETTER MODAL / OVERLAY -->
+    <div id="letterModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-500">
+        
+        <!-- Envelope / Letter Card -->
+        <div class="relative w-full max-w-lg bg-gradient-to-b from-purple-950 via-slate-900 to-pink-950 rounded-3xl p-6 sm:p-10 border border-pink-400/40 glow-box-pink transform scale-90 transition-all duration-500 text-center space-y-6 shadow-2xl" id="letterCard">
+            
+            <!-- Close Button -->
+            <button id="closeLetterBtn" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-pink-950/80 text-pink-300 hover:text-white hover:bg-pink-800 transition flex items-center justify-center border border-pink-500/30">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Heart Wax Seal Icon -->
+            <div class="w-16 h-16 mx-auto rounded-full bg-rose-600/30 border-2 border-rose-400 flex items-center justify-center shadow-inner pulse-heart">
+                <i class="fa-solid fa-heart text-2xl text-rose-400"></i>
+            </div>
+
+            <div class="space-y-2">
+                <h3 class="text-2xl font-bold text-pink-200">A Secret Letter</h3>
+                <div class="w-12 h-0.5 bg-pink-400/50 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Letter Body strictly in Bengali as requested -->
+            <div class="bg-purple-900/20 p-6 rounded-2xl border border-pink-500/20 text-left">
+                <p class="text-lg sm:text-xl text-pink-100 font-medium leading-relaxed font-sans text-center">
+                    "পরি আশা করি ভালো আছো, তোমারে অনেক মিস করি, ইতি নাম না জানা কেউ কারণ আমার কোনো নাম দাও নি তুমি"
+                </p>
+            </div>
+
+            <p class="text-xs text-pink-300/60 italic">
+                ✨ "সময়ের সাথে সাথে মিষ্টি স্মৃতিগুলো চিরকাল থেকে যায়..."
+            </p>
+
+            <button id="closeModalActionBtn" class="px-6 py-2.5 rounded-full bg-pink-600 hover:bg-pink-500 text-white text-sm font-medium transition shadow-md">
+                Keep This Safe In Heart ❤️
+            </button>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Audio & Controls Setup ---
+            const audio = document.getElementById('mainAudio');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const playIcon = document.getElementById('playIcon');
+            const albumDisc = document.getElementById('albumDisc');
+            const seekBar = document.getElementById('seekBar');
+            const currentTimeDisplay = document.getElementById('currentTimeDisplay');
+            const durationDisplay = document.getElementById('durationDisplay');
+            const rewindBtn = document.getElementById('rewindBtn');
+            const forwardBtn = document.getElementById('forwardBtn');
+            const audioFileInput = document.getElementById('audioFileInput');
+
+            let isPlaying = false;
+
+            // Toggle Play/Pause
+            function togglePlay() {
+                if (audio.paused) {
+                    audio.play().then(() => {
+                        isPlaying = true;
+                        playIcon.className = 'fa-solid fa-pause';
+                        albumDisc.classList.add('animate-spin');
+                        albumDisc.style.animationDuration = '10s';
+                    }).catch(err => {
+                        console.log("Audio play blocked/error:", err);
+                    });
+                } else {
+                    audio.pause();
+                    isPlaying = false;
+                    playIcon.className = 'fa-solid fa-play ml-1';
+                    albumDisc.classList.remove('animate-spin');
+                }
+            }
+
+            playPauseBtn.addEventListener('click', togglePlay);
+
+            // Audio File Upload
+            audioFileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const fileURL = URL.createObjectURL(file);
+                    audio.src = fileURL;
+                    audio.load();
+                    togglePlay();
+                }
+            });
+
+            // Rewind/Forward 5 seconds
+            rewindBtn.addEventListener('click', () => { 
+                audio.currentTime = Math.max(0, audio.currentTime - 5); 
+            });
+            forwardBtn.addEventListener('click', () => { 
+                audio.currentTime = Math.min(audio.duration || 94, audio.currentTime + 5); 
+            });
+
+            // Format Time (MM:SS)
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return "00:00";
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+
+            // Audio Metadata Loaded
+            audio.addEventListener('loadedmetadata', () => {
+                durationDisplay.textContent = formatTime(audio.duration);
+            });
+
+            // Update Progress Bar & Subtitles
+            const lyricLines = document.querySelectorAll('.lyric-line');
+            const lyricsContainer = document.getElementById('lyricsScrollContainer');
+
+            // Click on lyric line to jump
+            lyricLines.forEach(line => {
+                line.addEventListener('click', () => {
+                    const time = parseFloat(line.getAttribute('data-time'));
+                    if (!isNaN(time)) {
+                        audio.currentTime = time;
+                        if (audio.paused) {
+                            togglePlay();
+                        }
+                    }
+                });
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                const cur = audio.currentTime;
+                const dur = audio.duration || 94;
+                
+                // Update seek bar
+                seekBar.value = (cur / dur) * 100;
+                currentTimeDisplay.textContent = formatTime(cur);
+
+                // Highlight active subtitle line
+                let currentActiveLine = null;
+
+                lyricLines.forEach((line, index) => {
+                    const lineTime = parseFloat(line.getAttribute('data-time'));
+                    const nextLine = lyricLines[index + 1];
+                    const nextLineTime = nextLine ? parseFloat(nextLine.getAttribute('data-time')) : Infinity;
+
+                    if (cur >= lineTime && cur < nextLineTime) {
+                        line.classList.add('active');
+                        currentActiveLine = line;
+                    } else {
+                        line.classList.remove('active');
+                    }
+                });
+
+                // Smooth scroll active line to center of lyric window
+                if (currentActiveLine) {
+                    const containerRect = lyricsContainer.getBoundingClientRect();
+                    const lineRect = currentActiveLine.getBoundingClientRect();
+                    const offset = (lineRect.top - containerRect.top) - (lyricsContainer.clientHeight / 2) + (lineRect.height / 2);
+
+                    lyricsContainer.scrollBy({
+                        top: offset,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+
+            // Seek audio
+            seekBar.addEventListener('input', () => {
+                if (audio.duration) {
+                    audio.currentTime = (seekBar.value / 100) * audio.duration;
+                }
+            });
+
+            // Auto show Letter when Audio Ends
+            audio.addEventListener('ended', () => {
+                isPlaying = false;
+                playIcon.className = 'fa-solid fa-play ml-1';
+                albumDisc.classList.remove('animate-spin');
+                setTimeout(() => {
+                    openLetterModal();
+                }, 800);
+            });
+
+
+            // --- 2. Letter Modal Popup ---
+            const letterModal = document.getElementById('letterModal');
+            const letterCard = document.getElementById('letterCard');
+            const openLetterBtn = document.getElementById('openLetterBtn');
+            const closeLetterBtn = document.getElementById('closeLetterBtn');
+            const closeModalActionBtn = document.getElementById('closeModalActionBtn');
+
+            function openLetterModal() {
+                letterModal.classList.remove('opacity-0', 'pointer-events-none');
+                letterCard.classList.remove('scale-90');
+                letterCard.classList.add('scale-100');
+            }
+
+            function closeLetterModal() {
+                letterModal.classList.add('opacity-0', 'pointer-events-none');
+                letterCard.classList.remove('scale-100');
+                letterCard.classList.add('scale-90');
+            }
+
+            openLetterBtn.addEventListener('click', openLetterModal);
+            closeLetterBtn.addEventListener('click', closeLetterModal);
+            closeModalActionBtn.addEventListener('click', closeLetterModal);
+
+
+            // --- 3. Interactive Floating Hearts on Click ---
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('button') || e.target.closest('input') || e.target.closest('.lyric-line')) return;
+
+                const heart = document.createElement('div');
+                heart.className = 'click-heart';
+                heart.innerHTML = ['💖', '✨', '🌸', '💕', '💘'][Math.floor(Math.random() * 5)];
+                heart.style.left = `${e.clientX}px`;
+                heart.style.top = `${e.clientY}px`;
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 1200);
+            });
+
+
+            // --- 4. Starry Night Canvas Background Animation ---
+            const canvas = document.getElementById('starCanvas');
+            const ctx = canvas.getContext('2d');
+            let stars = [];
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            for (let i = 0; i < 120; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5 + 0.5,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.02 + 0.005
+                });
+            }
+
+            function animateStars() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                stars.forEach(star => {
+                    star.alpha += star.speed;
+                    if (star.alpha > 1 || star.alpha < 0) {
+                        star.speed = -star.speed;
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(244, 114, 182, ${Math.abs(star.alpha)})`;
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = '#f472b6';
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animateStars);
+            }
+
+            animateStars();
+        });
+    </script>
+</body>
+</html>
+
